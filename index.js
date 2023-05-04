@@ -14,6 +14,7 @@ client.on('ready', () => {
 
     new CH({
         client,
+        mongoUri: process.env.MONGO_URI,
         commandsDir: path.join(__dirname, 'commands')
     })
 
