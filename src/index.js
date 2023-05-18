@@ -20,6 +20,7 @@ client.on('ready', () => {
     new CH({
         client,
         mongoUri: 'mongodb+srv://ignJosh:Buster12@cluster0.gzfgi5h.mongodb.net/?retryWrites=true&w=majority',
+        testServers: ['1026962943616753735'],
         commandsDir: path.join(__dirname, 'commands'),
         featuresDir: path.join(__dirname, 'events'),
     })

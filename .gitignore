@@ -3,4 +3,8 @@
 
 /bin/*
 /node_modules/*
+node_modules/*
+node_modules
 storage/
+/node_modules/
+/node_modules
