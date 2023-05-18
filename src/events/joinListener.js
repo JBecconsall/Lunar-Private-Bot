@@ -12,13 +12,18 @@ module.exports = async(interaction) => {
             .setThumbnail("https://images-ext-2.discordapp.net/external/Qj_Pnp42psww6cHUxaNRklU7tbL_MftxRLk_Oxh5jEA/%3Fsize%3D4096/https/cdn.discordapp.com/icons/1026962943616753735/de0c023285404f5c8956f887c9a65824.png")
             .setTimestamp()
 
-        let channel = interaction.guild.channels.cache.find(c => c.id === '1027268283763785759')
+        let channel = interaction.guild.channels.cache.find(c => c.id === '1108840163674693735')
 
         let message = MessagePayload.create(channel,{
             embeds: [embed]
         });
 
-        await channel.send(`<@{interaction.user.id}>`).then(channel.send(message))
+        // let role = interaction.guild.roles.cache.find(r => r.id === '1031598860621062165')
+
+        // await interaction.member.addR(role) 
+
+
+        await channel.send(`<@${interaction.user.id}>`).then(channel.send(message))
 
     })
 }
