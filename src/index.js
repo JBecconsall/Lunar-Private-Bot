@@ -1,11 +1,12 @@
-const {Client, IntentsBitField } = require('discord.js');
-const CH = require('cmd-handler');
+const {Client, IntentsBitField, GatewayIntentBits } = require('discord.js');
+const CH = require('wokcommands');
 const path = require('path');
 require('dotenv/config')
 
 const client = new Client({
     intents: [
-        IntentsBitField.Flags.Guilds
+        IntentsBitField.Flags.Guilds,
+        GatewayIntentBits.GuildMembers,
     ]
 });
 
@@ -20,7 +21,8 @@ client.on('ready', () => {
         client,
         mongoUri: 'mongodb+srv://ignJosh:Buster12@cluster0.gzfgi5h.mongodb.net/?retryWrites=true&w=majority',
         commandsDir: path.join(__dirname, 'commands'),
-        })
+        featuresDir: path.join(__dirname, 'events'),
+    })
 
 
 
