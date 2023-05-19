@@ -1,10 +1,12 @@
 const {EmbedBuilder, MessagePayload} = require('discord.js');
+const { CommandType } = require("wokcommands");
 module.exports = {
     category: 'Applications',
     name: 'application-panel',
     description: 'Sends panel for applications',
     testOnly: true,
-    slash: true,
+    type: CommandType.SLASH,
+    
     
     callback: async ({interaction, client}) => {
 
@@ -23,5 +25,5 @@ module.exports = {
 
         await interaction.channel.send(message)
 
-    }
+    },
 }

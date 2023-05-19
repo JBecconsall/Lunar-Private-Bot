@@ -1,7 +1,6 @@
 const {Client, IntentsBitField, GatewayIntentBits } = require('discord.js');
 const CH = require('wokcommands');
 const path = require('path');
-const { type } = require('os');
 require('dotenv/config')
 
 const client = new Client({
@@ -10,6 +9,7 @@ const client = new Client({
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildPresences,
         GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildMessages,
     ]
 });
 
@@ -28,17 +28,19 @@ client.on('ready', async () => {
 
     setInterval(() => {
         const status = activities[Math.floor(Math.random() * activities.length)];
-        client.user.setPresence({activities: [{name: `${status}`}]}, {type: "WATCHING"});
+        client.user.setPresence({activities: [{name: `${status}`}], type: "WATCHING "});
     }, 5000)
 
     new CH({
         client,
+        debug: true,
+        commandsdir: path.join(__dirname, 'commands'),
+        featuresDir: path.join(__dirname, 'events'),
+        showWarns: true,
         mongoUri: 'mongodb+srv://ignJosh:Buster12@cluster0.gzfgi5h.mongodb.net/?retryWrites=true&w=majority',
         testServers: ['1026962943616753735'],
-        commandsDir: path.join(__dirname, 'commands'),
-        featuresDir: path.join(__dirname, 'events'),
+        
     })
-
 
 
 });
