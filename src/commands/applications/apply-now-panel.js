@@ -4,6 +4,7 @@ module.exports = {
     name: 'application-panel',
     description: 'Sends panel for applications',
     testOnly: true,
+    slash: true,
     
     callback: async ({interaction, client}) => {
 
