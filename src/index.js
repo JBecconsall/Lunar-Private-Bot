@@ -23,18 +23,19 @@ client.on('ready', async () => {
     const guild = await client.guilds.cache.get("1026962943616753735")
 
     const activities = [
-        `over ${guild.memberCount} members`
+        `over ${guild.memberCount} members`,
+        `your messages`
     ]
 
     setInterval(() => {
         const status = activities[Math.floor(Math.random() * activities.length)];
-        client.user.setPresence({activities: [{name: `${status}`}], type: "WATCHING "});
+        client.user.setPresence({activities: [{name: `${status}`}], type: "WATCHING"});
     }, 5000)
 
     new CH({
         client,
         debug: true,
-        commandsdir: path.join(__dirname, 'commands'),
+        commandsDir: path.join(__dirname, 'commands'),
         featuresDir: path.join(__dirname, 'events'),
         showWarns: true,
         mongoUri: 'mongodb+srv://ignJosh:Buster12@cluster0.gzfgi5h.mongodb.net/?retryWrites=true&w=majority',
