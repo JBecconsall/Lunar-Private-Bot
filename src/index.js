@@ -1,6 +1,7 @@
-const {Client, IntentsBitField, GatewayIntentBits } = require('discord.js');
+const {Client, IntentsBitField, GatewayIntentBits, ActivityType } = require('discord.js');
 const CH = require('wokcommands');
 const path = require('path');
+const { type } = require('os');
 require('dotenv/config')
 
 const client = new Client({
@@ -27,10 +28,12 @@ client.on('ready', async () => {
         `your messages`
     ]
 
-    setInterval(() => {
-        const status = activities[Math.floor(Math.random() * activities.length)];
-        client.user.setPresence({activities: [{name: `${status}`}], type: "WATCHING"});
-    }, 5000)
+    // setInterval(() => {
+    //     const status = activities[Math.floor(Math.random() * activities.length)];
+    //     client.user.setActivity(status, {type: "WATCHING "});
+    // }, 5000)
+
+    client.user.setActivity({name: `over the Lunar Discord`, type: ActivityType.Watching})
 
     new CH({
         client,

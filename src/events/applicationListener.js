@@ -51,5 +51,48 @@ module.exports = async(interaction) => {
 
             await interaction.showModal(staffModal)
         }
+
+        if(interaction.customId === 'supportApply') {
+
+
+            const supportModal = new ModalBuilder()
+            .setCustomId('supportModal')
+            .setTitle('Support Team Application')
+
+
+            const questionOne = new TextInputBuilder()
+            .setCustomId('idQuestion')
+            .setLabel('What is your Discord ID?')
+            .setStyle(TextInputStyle.Short)
+            .setRequired(true)
+
+            const questionTwo = new TextInputBuilder()
+            .setCustomId('whyQuestion')
+            .setLabel('Why do you want to be a support member?')
+            .setStyle(TextInputStyle.Paragraph)
+            .setRequired(true)
+
+            const questionThree = new TextInputBuilder()
+            .setCustomId('experienceQuestion')
+            .setLabel('Do you have previous support experience?')
+            .setStyle(TextInputStyle.Paragraph)
+            .setRequired(true)
+
+            const questionFour = new TextInputBuilder()
+            .setCustomId('ageQuestion')
+            .setLabel('How old are you?')
+            .setStyle(TextInputStyle.Short)
+            .setRequired(true)
+
+            const actionRowOne = new ActionRowBuilder().addComponents(questionOne)
+            const actionRowTwo = new ActionRowBuilder().addComponents(questionTwo)
+            const actionRowThree = new ActionRowBuilder().addComponents(questionThree)
+            const actionRowFour = new ActionRowBuilder().addComponents(questionFour)
+
+
+            supportModal.addComponents(actionRowOne, actionRowTwo, actionRowThree, actionRowFour)
+
+            await interaction.showModal(supportModal)
+        }
     })
 }
