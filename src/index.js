@@ -2,16 +2,19 @@ const {Client, IntentsBitField, GatewayIntentBits, ActivityType } = require('dis
 const CH = require('wokcommands');
 const path = require('path');
 const { type } = require('os');
+const mysql = require('mysql2')
 require('dotenv/config')
 
 const client = new Client({
     intents: [
         IntentsBitField.Flags.Guilds,
+        IntentsBitField.Flags.GuildMessageReactions,
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildPresences,
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.GuildMessageReactions,
+        GatewayIntentBits.Guilds
     ]
 });
 
@@ -19,8 +22,26 @@ module.exports = {
     client
 }
 
+const database = mysql.createConnection({
+    host: "lin-22616-12902-mysql-primary.servers.linodedb.net",
+    user: 'linroot',
+    password: 'Ur1Guzgu$gm6Uy9U',
+    database: 'priv_bot',
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
+
 client.on('ready', async () => {
     console.log('The bot is online!')
+
+    database.connect(function (err) {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log('CONNECTED TO MYSQL DATABASE')
+        }
+    })
 
     const guild = await client.guilds.cache.get("1026962943616753735")
 
@@ -34,7 +55,7 @@ client.on('ready', async () => {
     //     client.user.setActivity(status, {type: "WATCHING "});
     // }, 5000)
 
-    client.user.setActivity({name: `over the Lunar Discord`, type: ActivityType.Watching})
+    client.user.setActivity({name: `over the Lunar Discord`}, {type: ActivityType.Watching})
 
     new CH({
         client,
