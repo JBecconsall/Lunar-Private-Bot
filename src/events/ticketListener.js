@@ -25,14 +25,7 @@ module.exports = async (instance, message) => {
     client.on("interactionCreate", async (interaction) => {
         if (!interaction.isStringSelectMenu()) return;
 
-        const closeButton = new ButtonBuilder()
-            .setCustomId('close')
-            .setEmoji('🔒')
-            .setLabel('Close')
-            .setStyle(ButtonStyle.Danger)
 
-        const row1 = new ActionRowBuilder()
-            .addComponents(closeButton)
 
         if (interaction.customId === 'tickets') {
             if (interaction.values[0] === 'gensup') {
@@ -59,6 +52,16 @@ module.exports = async (instance, message) => {
                         }
                     ],
                 }).then(async channel => {
+
+                    const closeButton = new ButtonBuilder()
+                        .setCustomId('close')
+                        .setEmoji('🔒')
+                        .setLabel('Close')
+                        .setStyle(ButtonStyle.Danger)
+
+                    const row1 = new ActionRowBuilder()
+                        .addComponents(closeButton)
+
                     let msg = MessagePayload.create(channel, {
                         embeds: [gensupOpened],
                         components: [row1]
