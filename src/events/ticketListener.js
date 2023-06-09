@@ -71,7 +71,7 @@ module.exports = async (instance, message) => {
                         ephemeral: true
                     })
                     await channel.send(msg)
-                    //await channel.send(`<@${interaction.user.id}> <@&1026963904171085904>`)
+                    await channel.send(`<@${interaction.user.id}> <@&1026963904171085904>`)
 
                 })
             }
