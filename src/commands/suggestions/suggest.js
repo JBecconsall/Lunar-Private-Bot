@@ -6,7 +6,6 @@ module.exports = {
     description: 'Make a server suggestion',
     type: CommandType.SLASH,
     testOnly: true,
-    ownerOnly: true,
     
     
     callback: async ({interaction, client}) => {

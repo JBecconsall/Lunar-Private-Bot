@@ -10,6 +10,7 @@ const {
     ActionRowBuilder,
     ButtonStyle,
 } = require("discord.js");
+const transcripts = require('discord-html-transcripts');
 module.exports = async (interaction) => {
 
     client.on("interactionCreate", async (interaction) => {
@@ -98,6 +99,8 @@ module.exports = async (interaction) => {
 
         if (interaction.customId === 're-open') {
 
+            await interaction.deferUpdate()
+
             interaction.channel.permissionOverwrites.set([{
                 id: interaction.guild.roles.everyone,
                 deny: [PermissionsBitField.Flags.ViewChannel]
@@ -130,12 +133,63 @@ module.exports = async (interaction) => {
 
         }
 
+        if (interaction.customId === 'transcript') {
+
+            if (!interaction.member.roles.cache.has('1026963904171085904')) {
+
+                interaction.reply({
+                    content: 'You do not have permission to save transcripts',
+                    ephemeral: true
+                })
+
+            } else {
+
+                await interaction.deferUpdate()
+
+            const attachment = await transcripts.createTranscript(interaction.channel, {
+                limit: 10000,
+                returnType: 'attachment',
+                fileName: `${interaction.channel.name}.html`,
+                saveImages: true
+            });
+
+            let tchannel = interaction.guild.channels.cache.find(c => c.id === '1116847044867403896')
+
+            let tembed = new EmbedBuilder()
+            .setColor('Yellow')
+            .setTitle('Transcript Saved')
+            .setDescription(`The ticket transcript has been saved by <@${interaction.user.id}> (${interaction.user.tag})`)
+
+            let tmsg = MessagePayload.create(interaction.channel, {
+                embeds: [tembed]
+            })
+
+            await interaction.channel.send(tmsg)
+
+            let savedEmbed = new EmbedBuilder()
+            .setColor('Green')
+            .setTitle('New Transcript')
+            .setDescription(`Ticket transcript for ${interaction.channel.name}. Ticket closed by ${interaction.user.tag}`)
+            .setTimestamp()
+
+            let transcriptmsg = MessagePayload.create(tchannel, {
+                embeds: [savedEmbed],
+                files: [attachment]
+            })
+
+            await tchannel.send(transcriptmsg)
+        }
+
+            
+
+        }
+
         if (interaction.customId === 'delete') {
 
             if (!interaction.member.roles.cache.has('1026963904171085904')) {
 
                 interaction.reply({
-                    content: 'You do not have permission to close tickets',
+                    content: 'You do not have permission to delete tickets',
                     ephemeral: true
                 })
 
