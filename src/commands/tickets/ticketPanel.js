@@ -1,4 +1,4 @@
-const { StringSelectMenuBuilder, StringSelectMenuOptionBuilder, EmbedBuilder, MessagePayload, ActionRowBuilder } = require("discord.js")
+const { ButtonBuilder, EmbedBuilder, MessagePayload, ActionRowBuilder, ButtonStyle } = require("discord.js")
 const { CommandType } = require("wokcommands");
 module.exports = {
     category: 'Tickets',
@@ -10,30 +10,29 @@ module.exports = {
 
     callback: async ({interaction, client}) => {
 
-        const selections = new StringSelectMenuBuilder()
-        .setCustomId('tickets')
-        .setPlaceholder('Make a selection!')
-        .addOptions(
-            new StringSelectMenuOptionBuilder()
-            .setLabel('General Support')
-            .setDescription('General Questions and Support')
-            .setValue('gensup')
-            .setEmoji('🎫'),
-        )
+        const openButton = new ButtonBuilder()
+                        .setCustomId('gensup')
+                        .setEmoji('📩')
+                        .setLabel('Create a Ticket')
+                        .setStyle(ButtonStyle.Primary)
+
+                    const row1 = new ActionRowBuilder()
+                        .addComponents(openButton)
+
+                    
+
 
         const embed = new EmbedBuilder()
         .setColor('Blue')
         .setTitle('Ticket Categories')
-        .setDescription('The ticket categories for this guild are shown below. Please select the correct ticket type to start.')
+        .setDescription('Click below to open a ticket and get support from our team!')
         .setFooter({text: 'Ticket System'})
         .setTimestamp()
 
-        const row = new ActionRowBuilder()
-        .addComponents(selections)
-
+    
         let msg = MessagePayload.create(interaction.channel, {
             embeds: [embed],
-            components: [row]
+            components: [row1]
         })
 
         await interaction.channel.send(msg)

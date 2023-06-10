@@ -23,12 +23,11 @@ module.exports = async (instance, message) => {
         })
 
     client.on("interactionCreate", async (interaction) => {
-        if (!interaction.isStringSelectMenu()) return;
+        if (!interaction.isButton()) return;
 
 
 
-        if (interaction.customId === 'tickets') {
-            if (interaction.values[0] === 'gensup') {
+        if (interaction.customId === 'gensup') {
                 let channelName = `ticket-${interaction.user.tag}`
                 let parent = '1057286042165723176'
 
@@ -75,8 +74,7 @@ module.exports = async (instance, message) => {
 
                 })
             }
-        }
-
+        
 
     })
 

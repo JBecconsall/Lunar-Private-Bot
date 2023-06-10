@@ -29,7 +29,8 @@ module.exports = async (interaction) => {
             } else {
 
 
-                interaction.channel.permissionOverwrites.set([{
+                interaction.channel.permissionOverwrites.set([
+                    {
                         id: interaction.guild.roles.everyone,
                         deny: [PermissionsBitField.Flags.ViewChannel]
                     },
